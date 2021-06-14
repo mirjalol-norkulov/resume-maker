@@ -1,4 +1,7 @@
 import Vue from "vue";
+
+import "tailwindcss/tailwind.css";
+
 import App from "./App.vue";
 import "./registerServiceWorker";
 import router from "./router";

@@ -8,8 +8,10 @@ import store from "./store";
 import "tailwindcss/tailwind.css";
 import "cropperjs/dist/cropper.min.css";
 import "@/assets/scss/global.scss";
+import api from "@/api";
 
 Vue.config.productionTip = false;
+Vue.prototype.$api = api;
 
 new Vue({
   router,

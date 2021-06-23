@@ -149,7 +149,6 @@ import SkillsSection from "@/components/sections/skills/SkillsSection";
 import DefaultTemplate from "@/components/templates/DefaultTemplate";
 import DynamicItem from "@/components/DynamicItem";
 import RButton from "@/components/ui/RButton";
-import axios from "axios";
 import PhotoUploader from "@/components/PhotoUploader";
 
 export default {
@@ -247,8 +246,8 @@ export default {
     async handleExportPDF() {
       const templateHTML = this.$refs.template.$el.innerHTML;
       try {
-        const response = await axios.post(
-          "http://localhost:3000/export-pdf",
+        const response = await this.$api.post(
+          "/export-pdf",
           {
             html: templateHTML,
           },

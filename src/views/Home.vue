@@ -11,7 +11,7 @@
           />
         </r-form-item>
         <r-form-item full-width>
-          <r-photo-upload />
+          <photo-uploader v-model="personalDetails.photo" />
         </r-form-item>
         <r-form-item label="First Name" full-width>
           <r-input full-width v-model="personalDetails.firstName" />
@@ -135,7 +135,6 @@ import { mapMutations } from "vuex";
 import draggable from "vuedraggable";
 import RInput from "@/components/ui/RInput";
 import RFormItem from "@/components/ui/RFormItem";
-import RPhotoUpload from "@/components/ui/RPhotoUpload";
 import RCollapse from "@/components/ui/RCollapse";
 import ChevronUpIcon from "@/assets/svg/chevron-up.svg";
 import ChevronDownIcon from "@/assets/svg/chevron-down.svg";
@@ -151,17 +150,18 @@ import DefaultTemplate from "@/components/templates/DefaultTemplate";
 import DynamicItem from "@/components/DynamicItem";
 import RButton from "@/components/ui/RButton";
 import axios from "axios";
+import PhotoUploader from "@/components/PhotoUploader";
 
 export default {
   name: "Home",
   components: {
+    PhotoUploader,
     RButton,
     DynamicItem,
     DynamicSection,
     EditableTitle,
     RichTextEditor,
     RCollapse,
-    RPhotoUpload,
     RFormItem,
     RInput,
     ChevronUpIcon,

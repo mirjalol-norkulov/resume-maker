@@ -6,6 +6,7 @@ import router from "./router";
 import store from "./store";
 
 import "tailwindcss/tailwind.css";
+import "cropperjs/dist/cropper.min.css";
 import "@/assets/scss/global.scss";
 
 Vue.config.productionTip = false;

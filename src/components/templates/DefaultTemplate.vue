@@ -3,8 +3,9 @@
     <div class="px-6 py-8 text-white" style="background: #10365c">
       <section class="flex flex-col items-center">
         <img
+          v-if="personalDetails.photo && personalDetails.photo.croppedImage"
           :alt="fullName"
-          src="https://scontent.ftas1-1.fna.fbcdn.net/v/t1.6435-9/195542180_3979880475458718_5448215689904474167_n.jpg?_nc_cat=108&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=wjYB8rzcOqIAX9Mywej&_nc_ht=scontent.ftas1-1.fna&oh=b9f9f224b07358125060bde12fd1b6df&oe=60D7B14C"
+          :src="personalDetails.photo.croppedImage"
           class="block mb-2 w-14 h-14 object-cover rounded-full"
         />
         <h1 class="text-2xl">{{ fullName }}</h1>

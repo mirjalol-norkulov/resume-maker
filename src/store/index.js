@@ -13,6 +13,7 @@ export default new Vuex.Store({
   state: {
     personalDetails: {
       title: "Personal details",
+      photo: null,
       jobTitle: "",
       firstName: "",
       lastName: "",

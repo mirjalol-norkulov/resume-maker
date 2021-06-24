@@ -1,6 +1,9 @@
 <template>
   <div class="flex w-screen min-h-screen">
-    <section class="w-1/2 px-12 py-20 max-h-screen overflow-y-auto scrollable">
+    <section class="w-1/2 px-12 pb-20 max-h-screen overflow-y-auto scrollable">
+      <div class="flex justify-center py-5">
+        <logo-tip />
+      </div>
       <editable-title class="mb-2" v-model="personalDetails.title" />
       <div class="grid grid-cols-2 gap-8 items-end">
         <r-form-item label="Wanted job title" full-width>
@@ -150,10 +153,12 @@ import DefaultTemplate from "@/components/templates/DefaultTemplate";
 import DynamicItem from "@/components/DynamicItem";
 import RButton from "@/components/ui/RButton";
 import PhotoUploader from "@/components/PhotoUploader";
+import LogoTip from "@/components/LogoTip";
 
 export default {
   name: "Home",
   components: {
+    LogoTip,
     PhotoUploader,
     RButton,
     DynamicItem,

@@ -1,7 +1,7 @@
 <template>
-  <div class="flex items-center group">
+  <div class="editable-title flex items-center group">
     <r-input
-      class="bg-white text-xl"
+      class="text-xl"
       :input-props="{
         class: 'p-0 font-bold',
         disabled: !isEditing,
@@ -83,4 +83,12 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.editable-title {
+  &::v-deep {
+    .r-input {
+      background-color: white !important;
+    }
+  }
+}
+</style>

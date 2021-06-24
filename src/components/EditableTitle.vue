@@ -87,7 +87,7 @@ export default {
 .editable-title {
   &::v-deep {
     .r-input {
-      @apply pl-0;
+      padding-left: 0 !important;
       background-color: white !important;
     }
   }

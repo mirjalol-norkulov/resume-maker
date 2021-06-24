@@ -4,6 +4,12 @@ module.exports = {
 
     svgRule.uses.clear();
 
+    // Update page title
+    config.plugin("html").tap((args) => {
+      args[0].title = "Resume maker";
+      return args;
+    });
+
     svgRule
       .use("vue-loader")
       .loader("vue-loader") // or `vue-loader-v16` if you are using a preview support of Vue 3 in Vue CLI

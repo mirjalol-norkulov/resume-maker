@@ -111,17 +111,13 @@
         items-center
         justify-center
         relative
+        overflow-hidden
       "
     >
-      <div class="bg-white rounded-lg w-11/12 transform scale-75">
-        <default-template
-          class="shadow-lg"
-          ref="template"
-          :personal-details="personalDetails"
-          :summary="summary"
-          :sections="sections"
-        />
-      </div>
+      <template-preview
+        class="bg-white rounded-lg w-8/12 overflow-hidden relative shadow-2xl"
+        style="height: 90vh; max-height: 90vh"
+      />
       <r-button
         class="absolute bottom-4 right-4"
         color="primary"
@@ -154,10 +150,12 @@ import DynamicItem from "@/components/DynamicItem";
 import RButton from "@/components/ui/RButton";
 import PhotoUploader from "@/components/PhotoUploader";
 import LogoTip from "@/components/LogoTip";
+import TemplatePreview from "@/components/TemplatePreview";
 
 export default {
   name: "Home",
   components: {
+    TemplatePreview,
     LogoTip,
     PhotoUploader,
     RButton,

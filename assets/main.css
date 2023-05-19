@@ -1,0 +1,11 @@
+.scrollable {
+  &::-webkit-scrollbar {
+    @apply w-1;
+  }
+  &::-webkit-scrollbar-track {
+    background: white;
+  }
+  &::-webkit-scrollbar-thumb {
+    @apply rounded-3xl bg-primary-darker w-1;
+  }
+}

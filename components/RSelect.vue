@@ -4,10 +4,7 @@
       <ListboxButton
         class="outline-none !bg-slate-100 min-w-[120px] min-h-[40px] inline-flex items-center justify-between w-full outline-none px-4 py-2 text-black cursor-pointer text-sm select-none"
       >
-        {{
-          (currentSelectedItem && currentSelectedItem[itemLabel]) ||
-          "Select option"
-        }}
+        {{ currentSelectedItem?.[itemLabel] || "Select option" }}
         <div
           class="i-mdi-chevron-down transform transition duration-200"
           :class="{ 'rotate-180': open }"
@@ -45,7 +42,6 @@ import {
 
 const props = withDefaults(
   defineProps<{
-    modelValue?: string | number;
     items?: any[];
     itemKey?: string;
     itemLabel?: string;
@@ -56,7 +52,9 @@ const props = withDefaults(
   }
 );
 
+const attrs = useAttrs();
+
 const currentSelectedItem = computed<any>(() =>
-  props.items?.find((item: any) => item[props.itemKey] === props.modelValue)
+  props.items?.find((item: any) => item[props.itemKey] === attrs.modelValue)
 );
 </script>

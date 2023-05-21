@@ -7,6 +7,14 @@
       {{ label }}
     </div>
     <slot />
+
+    <p
+      v-if="showError"
+      class="mt-1 h-5 text-sm text-red-5 transition duration-300"
+      :class="[errorMessage ? 'opacity-100' : 'opacity-0']"
+    >
+      {{ errorMessage }}
+    </p>
   </div>
 </template>
 
@@ -15,7 +23,9 @@ withDefaults(
   defineProps<{
     label?: string;
     fullWidth?: boolean;
+    showError?: boolean;
+    errorMessage?: string;
   }>(),
-  { fullWidth: false }
+  { fullWidth: false, showError: false }
 );
 </script>

@@ -8,6 +8,13 @@ import {
   SectionsWebsitesWebsiteLinks,
 } from "#components";
 
+definePageMeta({
+  middleware: "auth",
+});
+
+const supabase = useSupabaseClient();
+const user = useSupabaseUser();
+
 const personalDetails = reactive({
   title: "Personal details",
   photo: null,
@@ -23,6 +30,7 @@ const personalDetails = reactive({
   birthPlace: "",
   birthDate: "",
 });
+
 const showAdditionalDetails = ref(false);
 const summary = reactive({
   title: "Professional summary",
@@ -73,6 +81,26 @@ const handleSectionUpdate = (section: any) => {
   sections.value = sections.value.map((s: any) =>
     s.id === section.id ? section : s
   );
+};
+
+const { data: preview } = useFetch("/api/preview", {
+  responseType: "blob",
+  server: false,
+});
+const previewUrl = computed(() => {
+  if (!preview.value || !process.client) {
+    return "";
+  }
+
+  if (preview.value instanceof Blob) {
+    return URL.createObjectURL(preview.value);
+  }
+  return "";
+});
+
+const signout = async () => {
+  const { error } = await supabase.auth.signOut();
+  navigateTo("/auth/login");
 };
 </script>
 
@@ -169,6 +197,9 @@ const handleSectionUpdate = (section: any) => {
           />
         </template>
       </draggable>
+    </section>
+    <section class="w-1/2">
+      <img :src="previewUrl" />
     </section>
   </div>
 </template>

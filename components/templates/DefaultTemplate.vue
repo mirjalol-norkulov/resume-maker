@@ -68,7 +68,7 @@ import WebsiteItem from "@/components/templates/item-renderers/WebsiteItem";
 import LanguageItem from "@/components/templates/item-renderers/LanguageItem";
 import SkillItem from "@/components/templates/item-renderers/SkillItem";
 
-export default {
+export default defineComponent({
   name: "DefaultTemplate",
   props: {
     personalDetails: {
@@ -97,5 +97,5 @@ export default {
       return `${firstName} ${lastName}`;
     },
   },
-};
+});
 </script>

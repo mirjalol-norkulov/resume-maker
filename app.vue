@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import "@unocss/reset/tailwind.css";
+import "@unocss/reset/tailwind-compat.css";
 import "cropperjs/dist/cropper.min.css";
+import "vue-toastification/dist/index.css";
+
 import "~/assets/main.css";
 </script>
 

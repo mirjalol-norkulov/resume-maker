@@ -13,10 +13,10 @@
       :style="{ width }"
     />
     <button
-      class="focus:outline-none hover:text-primary opacity-0 cursor-pointer transition-all duration-300 group-hover:opacity-100 group-hover:text-primary"
+      class="focus:outline-none bg-transparent hover:text-primary opacity-0 cursor-pointer transition-all duration-300 group-hover:opacity-100 group-hover:text-primary"
       @click="handleEnableEdit"
     >
-      <div class="i-material-symbols-edit h-5 w-5" />
+      <div class="i-ri-pencil-line h-5 w-5" />
     </button>
   </div>
 </template>
@@ -28,7 +28,6 @@ const props = defineProps<{
 const emit = defineEmits(["update:model-value"]);
 
 const el = ref();
-const width = ref("0");
 const isEditing = ref(false);
 const innerValue = ref<string | undefined>("");
 
@@ -51,14 +50,14 @@ const handleEnableEdit = () => {
     }
   });
 };
-const updateWidth = () => {
-  width.value = `${props.modelValue?.length || 0 + 1}ch`;
-};
+
+const width = computed(() => {
+  return `${innerValue.value?.length || 0 + 1}ch`;
+});
 
 watch(
   () => props.modelValue,
   (val) => {
-    updateWidth();
     innerValue.value = val;
   },
   { immediate: true }

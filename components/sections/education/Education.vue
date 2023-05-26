@@ -1,7 +1,12 @@
 <template>
-  <dynamic-section class="bg-white" :section="section" v-bind="$attrs">
+  <dynamic-section
+    class="bg-white"
+    hint="If relevant, include your most recent educational achievements and the dates here"
+    :section="section"
+    v-bind="$attrs"
+  >
     <template #item="{ item, deleteItem, updateItem, expandChange, expanded }">
-      <SectionsEducationItem
+      <EducationItem
         :item="item"
         :key="item.id"
         class="mb-3"
@@ -40,7 +45,7 @@ const handleAddItem = () => {
     },
     city: "",
     description: "",
-    rendererComponent: "education-item",
+    rendererComponent: "education-item-renderer",
   };
   emit("update:section", {
     ...props.section,

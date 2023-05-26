@@ -2,14 +2,14 @@
   <div v-if="innerSection" v-bind="$attrs">
     <div class="flex items-center group relative">
       <button
-        class="focus:outline-none absolute right-full text-slate-300 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+        class="focus:outline-none bg-transparent absolute right-full text-slate-300 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
         :class="dragHandleClass"
       >
-        <div class="i-material-symbols-drag-indicator w-6 h-6" />
+        <span class="i-ri-draggable w-6 h-6" />
       </button>
       <EditableTitle v-model="innerSection.title" />
     </div>
-    <div class="text-sm text-slate-500">{{ innerSection.hint }}</div>
+    <div class="text-sm text-slate-500">{{ hint }}</div>
     <div class="mt-3">
       <draggable
         v-model="innerSection.items"
@@ -47,6 +47,10 @@ export default {
     section: {
       type: Object,
       required: true,
+    },
+    hint: {
+      type: String,
+      required: false,
     },
     dragHandleClass: {
       type: String,

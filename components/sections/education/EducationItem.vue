@@ -3,7 +3,7 @@
     <template #header>
       <h1 class="font-bold">{{ innerItem.school || "(Not specified)" }}</h1>
       <span class="text-sm">
-        {{ innerItem.interval.start }} - {{ innerItem.interval.end }}
+        {{ innerItem.interval?.start }} - {{ innerItem.interval?.end }}
       </span>
     </template>
     <div class="grid grid-cols-2 gap-4">
@@ -23,7 +23,7 @@
         <r-input full-width v-model="innerItem.city" />
       </r-form-item>
       <r-form-item label="Description" full-width class="col-span-2">
-        <rich-text-editor v-model="innerItem.description" />
+        <RichTextEditor v-model="innerItem.description" />
       </r-form-item>
     </div>
   </DynamicItem>
@@ -43,7 +43,17 @@ const innerItem = ref();
 watch(
   () => props.item,
   (newValue) => {
-    innerItem.value = newValue;
+    if (newValue) {
+      innerItem.value = newValue;
+    } else {
+      emit("update:item", {
+        school: "",
+        degree: "",
+        city: "",
+        description: "",
+        interval: { start: "", end: "" },
+      });
+    }
   },
   { immediate: true }
 );

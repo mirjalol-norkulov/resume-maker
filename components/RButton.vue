@@ -33,11 +33,11 @@ const button = tv({
   variants: {
     variant: {
       default: "px-4 py-2 focus:ring-1 ring-offset-2",
-      text: "hover:text-primary",
-      link: "text-primary font-semibold transition-colors duration-300 hover:bg-primary-light px-4 py-1.5",
+      text: "hover:text-primary bg-transparent",
+      link: "bg-transparent text-primary font-semibold transition-colors duration-300 hover:bg-primary-light px-4 py-1.5",
     },
     fullWidth: {
-      true: "w-full text-center justify-center",
+      true: "w-full text-center",
     },
     color: {
       default: "ring-slate-300",

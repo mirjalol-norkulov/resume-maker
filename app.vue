@@ -8,6 +8,6 @@ import "~/assets/main.css";
 
 <template>
   <div class="font-sans antialiased text-black">
-    <NuxtPage />
+    <NuxtLayout> <NuxtPage /></NuxtLayout>
   </div>
 </template>

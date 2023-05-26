@@ -1,7 +1,7 @@
 <template>
   <DynamicSection class="bg-white" :section="section">
     <template #item="{ item, deleteItem, updateItem, expandChange, expanded }">
-      <SectionsSkillsSectionItem
+      <SkillsSectionItem
         :item="item"
         :key="item.id"
         class="mb-3"
@@ -33,7 +33,7 @@ const handleAddItem = () => {
   const newItem = {
     id: uuidv4(),
     skill: "",
-    rendererComponent: "skill-item",
+    rendererComponent: "skill-item-renderer",
   };
   emit("update:section", {
     ...props.section,

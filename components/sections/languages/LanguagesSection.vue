@@ -1,7 +1,7 @@
 <template>
   <DynamicSection class="bg-white" :section="section">
     <template #item="{ item, deleteItem, updateItem, expandChange, expanded }">
-      <SectionsLanguagesSectionItem
+      <LanguagesSectionItem
         :item="item"
         :key="item.id"
         class="mb-3"
@@ -33,7 +33,7 @@ const handleAddItem = () => {
     id: uuidv4(),
     language: "",
     level: "",
-    rendererComponent: "language-item",
+    rendererComponent: "language-item-renderer",
   };
   emit("update:section", {
     ...props.section,

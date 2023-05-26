@@ -100,7 +100,7 @@ if (!props.modelValue) {
 watch(
   () => props.modelValue,
   (newValue) => {
-    innerValue.value = newValue;
+    if (newValue) innerValue.value = newValue;
   },
   { immediate: true }
 );

@@ -62,11 +62,11 @@
 </template>
 
 <script>
-import EmploymentItem from "@/components/templates/item-renderers/EmploymentItem";
-import EducationItem from "@/components/templates/item-renderers/EducationItem";
-import WebsiteItem from "@/components/templates/item-renderers/WebsiteItem";
-import LanguageItem from "@/components/templates/item-renderers/LanguageItem";
-import SkillItem from "@/components/templates/item-renderers/SkillItem";
+import EmploymentItem from "@/components/templates/item-renderers/EmploymentItemRenderer";
+import EducationItem from "@/components/templates/item-renderers/EducationItemRenderer";
+import WebsiteItem from "@/components/templates/item-renderers/WebsiteItemRenderer";
+import LanguageItem from "@/components/templates/item-renderers/LanguageItemRenderer";
+import SkillItem from "@/components/templates/item-renderers/SkillItemRenderer";
 
 export default defineComponent({
   name: "DefaultTemplate",

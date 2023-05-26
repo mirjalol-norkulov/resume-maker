@@ -23,7 +23,7 @@
         <r-input full-width v-model="innerItem.city" />
       </r-form-item>
       <r-form-item label="Description" full-width class="col-span-2">
-        <rich-text-editor v-model="innerItem.description" />
+        <RichTextEditor v-model="innerItem.description" />
       </r-form-item>
     </div>
   </DynamicItem>

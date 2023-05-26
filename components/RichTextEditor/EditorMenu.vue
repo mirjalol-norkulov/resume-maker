@@ -24,7 +24,7 @@
     <button
       class="outline-none w-5 h-5"
       :class="{ 'text-primary': editor.isActive('strike') }"
-      @click="editor.chain().toggleStrike"
+      @click="editor.commands.toggleStrike"
     >
       <div class="i-material-symbols-format-strikethrough" />
     </button>

@@ -1,9 +1,13 @@
 <template>
-  <DynamicSection class="bg-white" :section="section">
+  <DynamicSection
+    class="bg-white"
+    hint="You can add links to websites you want hiring managers to see! Perhaps It will be  a link to your portfolio, LinkedIn profile, or personal website"
+    :section="section"
+  >
     <template
       #item="{ item, deleteItem, updateItem, addItem, expandChange, expanded }"
     >
-      <SectionsWebsitesWebsiteLinksItem
+      <WebsiteLinksItem
         :item="item"
         :key="item.id"
         class="mb-3"
@@ -37,7 +41,7 @@ const handleAddItem = () => {
     id: uuidv4(),
     label: "",
     link: "",
-    rendererComponent: "website-item",
+    rendererComponent: "website-item-renderer",
   };
   emit("update:section", {
     ...props.section,

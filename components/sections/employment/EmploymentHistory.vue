@@ -1,7 +1,11 @@
 <template>
-  <DynamicSection class="bg-white" :section="section">
+  <DynamicSection
+    class="bg-white"
+    hint="Include your last 10 years of relevant experience and dates in this section. List your most recent position first"
+    :section="section"
+  >
     <template #item="{ item, deleteItem, updateItem, expandChange, expanded }">
-      <SectionsEmploymentHistoryItem
+      <EmploymentHistoryItem
         :item="item"
         :key="item.id"
         class="mb-3"
@@ -41,7 +45,7 @@ const handleAddItem = () => {
     },
     city: "",
     description: "",
-    rendererComponent: "employment-item",
+    rendererComponent: "employment-item-renderer",
   };
 
   emit("update:section", {

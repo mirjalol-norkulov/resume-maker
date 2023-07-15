@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{name}}</title>
+  </head>
+  <body>
+    <div class="flex w-full">
+      <div class="px-6 py-8 text-white" style="background: #10365c">
+        <section class="flex flex-col items-center">
+          {{#if showPhoto}}
+          <img
+            alt="{{fullName}}"
+            src="{{personalDetails.photo.croppedImage}}"
+            class="block mb-2 w-14 h-14 object-cover rounded-full"
+          />
+          {{/if}}
+          <h1 class="text-2xl">
+            {{ concat personalDetails.firstName " " personalDetails.lastName }}
+          </h1>
+          <div class="w-5 bg-slate-300 my-2" style="height: 1px"></div>
+          <span class="text-sm">{{ personalDetails.jobTitle }}</span>
+        </section>
+        <section class="mt-4">
+          <h1 class="text-lg">{{ personalDetails.title }}</h1>
+          <div class="text-sm">
+            <p>{{ personalDetails.city }}, {{ personalDetails.country }}</p>
+            <p>
+              <a href="{{concat 'tel:' personalDetails.phone}}">
+                {{ personalDetails.phone }}
+              </a>
+            </p>
+            <p>
+              <a
+                href="{{concat 'mail-to:' personalDetails.email}}"
+                class="underline"
+              >
+                {{ personalDetails.email }}
+              </a>
+            </p>
+
+            <h2 class="mt-6 mb-0.5 uppercase font-bold text-xs text-gray-400">
+              Nationality
+            </h2>
+            <p>{{ personalDetails.nationality }}</p>
+
+            <h2 class="mt-6 mb-0.5 uppercase font-bold text-xs text-gray-400">
+              Date / Place of birth
+            </h2>
+            <p>{{ personalDetails.birthDate }}</p>
+            <p>{{ personalDetails.birthPlace }}</p>
+          </div>
+        </section>
+      </div>
+      <div class="flex-1 bg-white px-6 py-8">
+        <section>
+          <h1 class="font-bold text-xl mb-1">{{ summary.title }}</h1>
+          <div class="text-sm">{{{summary.content}}}</div>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>

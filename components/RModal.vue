@@ -30,10 +30,10 @@
               <slot />
               <button
                 v-if="showClose"
-                class="absolute top-4 right-4 z-10 outline-none"
+                class="bg-transparent absolute top-4 right-4 z-10 outline-none"
                 @click="handleClose"
               >
-                <div class="i-mdi-close w-6 h-6 text-white" />
+                <span class="i-ri-close-line inline-block w-6 h-6 text-white" />
               </button>
             </DialogPanel>
           </TransitionChild>

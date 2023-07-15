@@ -8,14 +8,14 @@
           :src="personalDetails.photo.croppedImage"
           class="block mb-2 w-14 h-14 object-cover rounded-full"
         />
-        <h1 class="text-2xl">{{ fullName }}</h1>
-        <div class="w-5 bg-slate-300 my-2" style="height: 1px"></div>
-        <span class="text-sm">{{ personalDetails.jobTitle }}</span>
+        <h1 class="text-2xl text-white font-bold">{{ fullName }}</h1>
+        <div class="w-5 bg-gray-300 my-2 h-px"></div>
+        <span class="text-sm uppercase">{{ personalDetails.jobTitle }}</span>
       </section>
       <section class="mt-4">
         <h1 class="text-lg">{{ personalDetails.title }}</h1>
         <div class="text-sm">
-          <p>
+          <p v-if="personalDetails.city && personalDetails.country">
             {{ personalDetails.city }},
             {{ personalDetails.country }}
           </p>
@@ -33,13 +33,13 @@
           <h2 class="mt-6 mb-0.5 uppercase font-bold text-xs text-gray-400">
             Nationality
           </h2>
-          <p>{{ personalDetails.nationality }}</p>
+          <p>{{ personalDetails.nationality || "-" }}</p>
 
           <h2 class="mt-6 mb-0.5 uppercase font-bold text-xs text-gray-400">
             Date / Place of birth
           </h2>
-          <p>{{ personalDetails.birthDate }}</p>
-          <p>{{ personalDetails.birthPlace }}</p>
+          <p>{{ personalDetails.birthDate || "-" }}</p>
+          <p>{{ personalDetails.birthPlace || "-" }}</p>
         </div>
       </section>
     </div>
@@ -54,48 +54,47 @@
           v-for="item in section.items"
           :key="item.id"
           :item="item"
-          :is="item.rendererComponent"
+          :is="getSectionRendererComponent(item.rendererComponent)"
         />
       </section>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
 import EmploymentItem from "@/components/templates/item-renderers/EmploymentItemRenderer";
 import EducationItem from "@/components/templates/item-renderers/EducationItemRenderer";
 import WebsiteItem from "@/components/templates/item-renderers/WebsiteItemRenderer";
 import LanguageItem from "@/components/templates/item-renderers/LanguageItemRenderer";
 import SkillItem from "@/components/templates/item-renderers/SkillItemRenderer";
 
-export default defineComponent({
-  name: "DefaultTemplate",
-  props: {
-    personalDetails: {
-      type: Object,
-      required: true,
-    },
-    summary: {
-      type: Object,
-      required: true,
-    },
-    sections: {
-      type: Array,
-      required: true,
-    },
+const props = defineProps({
+  personalDetails: {
+    type: Object,
+    required: true,
   },
-  components: {
-    EmploymentItem,
-    EducationItem,
-    WebsiteItem,
-    LanguageItem,
-    SkillItem,
+  summary: {
+    type: Object,
+    required: true,
   },
-  computed: {
-    fullName() {
-      const { firstName, lastName } = this.personalDetails;
-      return `${firstName} ${lastName}`;
-    },
+  sections: {
+    type: Array,
+    required: true,
   },
+});
+
+const getSectionRendererComponent = (name) => {
+  return {
+    "employment-item-renderer": EmploymentItem,
+    "education-item-renderer": EducationItem,
+    "website-item-renderer": WebsiteItem,
+    "language-item-renderer": LanguageItem,
+    "skill-item-renderer": SkillItem,
+  }[name];
+};
+
+const fullName = computed(() => {
+  const { firstName, lastName } = props.personalDetails;
+  return `${firstName} ${lastName}`;
 });
 </script>

@@ -16,21 +16,31 @@ definePageMeta({
 const route = useRoute();
 const supabase = useSupabaseClient();
 
-const { data: resume } = await supabase
-  .from("resumes")
-  .select("*")
-  .eq("id", route.params.id)
-  .single<any>();
+const resume = ref(
+  (
+    await supabase
+      .from("resumes")
+      .select("*")
+      .eq("id", route.params.id)
+      .single<any>()
+  ).data
+);
+
+// const { data: resume } = await supabase
+// .from("resumes")
+// .select("*")
+// .eq("id", route.params.id)
+// .single<any>();
 
 useHead({
-  title: resume.name,
+  title: resume.value.name,
 });
 
-const name = ref(resume.name);
+const name = ref(resume.value.name);
 const photo = shallowRef();
 
 const personalDetails = reactive(
-  resume.personal_details || {
+  resume.value.personal_details || {
     title: "Personal details",
     jobTitle: "",
     firstName: "",
@@ -48,7 +58,7 @@ const personalDetails = reactive(
 
 const showAdditionalDetails = ref(false);
 const summary = reactive(
-  resume.summary || {
+  resume.value.summary || {
     title: "Professional summary",
     content: "",
   }
@@ -64,7 +74,7 @@ interface Section {
 }
 
 const sections = ref(
-  resume.sections || [
+  resume.value.sections || [
     {
       id: 1,
       title: "Employment history",
@@ -98,22 +108,6 @@ const sections = ref(
   ]
 );
 
-watchDebounced(
-  [name, personalDetails, summary, sections],
-  async () => {
-    await supabase
-      .from("resumes")
-      .update({
-        name: name.value,
-        personal_details: personalDetails,
-        summary,
-        sections: sections.value,
-      } as never)
-      .eq("id", resume.id);
-  },
-  { debounce: 500, deep: true }
-);
-
 function dataURItoBlob(dataURI: string) {
   return fetch(dataURI).then((response) => response.blob());
 }
@@ -133,7 +127,7 @@ watch(photo, async () => {
       await supabase
         .from("resumes")
         .update({ photo: filepath } as never)
-        .eq("id", resume.id);
+        .eq("id", resume.value.id);
     }
   }
 });
@@ -152,23 +146,46 @@ const handleSectionUpdate = (section: any) => {
   );
 };
 
-const token = useSupabaseToken();
-const { data: preview } = useFetch(`/api/preview/${resume.id}`, {
-  responseType: "blob",
-  server: false,
-  body: {
-    token: token.value,
+const { refresh: updateResumePreview } = useFetch(
+  `/api/preview/${resume.value.id}`,
+  {
+    method: "POST",
+    server: false,
+    onResponse(context) {
+      resume.value = context.response._data;
+    },
+  }
+);
+
+watchDebounced(
+  [name, personalDetails, summary, sections],
+  async () => {
+    await supabase
+      .from("resumes")
+      .update({
+        name: name.value,
+        personal_details: personalDetails,
+        summary,
+        sections: sections.value,
+      } as never)
+      .eq("id", resume.value.id);
+    updateResumePreview();
   },
-});
-const previewUrl = computed(() => {
-  if (!preview.value || !process.client) {
-    return "";
+  { debounce: 500, deep: true }
+);
+
+const pdfUrl = computed(() => {
+  if (resume.value.pdf_url) {
+    const { data } = supabase.storage
+      .from("resume_pdf_files")
+      .getPublicUrl(resume.value.pdf_url);
+
+    const url = new URL(data.publicUrl);
+    url.searchParams.set("key", new Date().valueOf().toString());
+    return url.toString();
   }
 
-  if (preview.value instanceof Blob) {
-    return URL.createObjectURL(preview.value);
-  }
-  return "";
+  return null;
 });
 </script>
 
@@ -266,8 +283,12 @@ const previewUrl = computed(() => {
         </template>
       </draggable>
     </section>
-    <section class="w-1/2">
-      <img :src="previewUrl" />
+    <section
+      class="w-1/2 min-h-screen bg-gray-500 flex items-center justify-center"
+    >
+      <ClientOnly>
+        <PdfView v-if="pdfUrl" :src="pdfUrl" />
+      </ClientOnly>
     </section>
   </div>
 </template>

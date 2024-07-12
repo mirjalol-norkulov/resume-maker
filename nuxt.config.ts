@@ -2,7 +2,13 @@ import { FileSystemIconLoader } from "unplugin-icons/loaders";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ["@unocss/nuxt", "@pinia/nuxt", "@nuxtjs/supabase", "@vueuse/nuxt"],
+  modules: [
+    "@unocss/nuxt",
+    "@pinia/nuxt",
+    "@nuxtjs/supabase",
+    "@vueuse/nuxt",
+    "@nuxt/icon"
+  ],
 
   components: [
     {

@@ -20,12 +20,12 @@
       <div>
         <slot name="header" />
       </div>
-      <span class="text-neutral-400">
+      <div class="text-neutral-400">
         <div
           class="i-mdi-chevron-down w-6 h-6 transform"
           :class="{ 'rotate-180': expanded }"
         />
-      </span>
+      </div>
     </header>
     <main>
       <r-collapse class="px-4" :collapsed="!isExpanded">

@@ -16,6 +16,7 @@
     "@iconify-json/svg-spinners": "^1.1.1",
     "@iconify/utils": "^2.1.5",
     "@nuxt/devtools": "^0.5.5",
+    "@nuxt/icon": "^1.0.0",
     "@nuxtjs/supabase": "^0.3.5",
     "@nuxtjs/tailwindcss": "^6.6.8",
     "@types/node": "^18",
@@ -23,7 +24,7 @@
     "@unocss/nuxt": "^0.51.12",
     "@vueuse/core": "^10.1.2",
     "@vueuse/nuxt": "^10.1.2",
-    "nuxt": "^3.4.3",
+    "nuxt": "^3.12.3",
     "nuxt-icon": "^0.4.0",
     "unplugin-icons": "^0.16.1"
   },

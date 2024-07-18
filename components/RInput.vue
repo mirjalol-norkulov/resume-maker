@@ -22,7 +22,7 @@ const emit = defineEmits(["update:model-value"]);
 const model = defineModel("modelValue");
 
 const input = tv({
-  base: "rounded inline-flex items-center relative text-black after:(content-none rounded-b absolute left-0 bottom-0 block w-full h-0.5 bg-primary transform scale-x-0 opacity-0 transition-all duration-300) focus-within:after:(scale-x-100 opacity-100)",
+  base: "rounded inline-flex items-center relative text-black after:(content-empty rounded-b absolute left-0 bottom-0 block w-full h-0.5 bg-primary transform scale-x-0 opacity-0 transition-all duration-300) focus-within:after:(scale-x-100 opacity-100)",
   variants: {
     color: {
       transparent: "bg-transparent",

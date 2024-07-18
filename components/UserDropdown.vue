@@ -28,7 +28,7 @@ const avatar = computed(() => user.value?.user_metadata.avatar_url);
 <template>
   <DropdownMenuRoot v-model:open="isOpen">
     <DropdownMenuTrigger
-      class="inline-flex w-full justify-center items-center rounded-md px-4 py-2 text-sm bg-white space-x-2"
+      class="inline-flex justify-center items-center rounded-md px-4 py-2 text-sm bg-white space-x-2"
     >
       <img :src="avatar" class="w-7 h-7 rounded-full" :alt="name" />
       <span>{{ name }}</span>
@@ -41,7 +41,7 @@ const avatar = computed(() => user.value?.user_metadata.avatar_url);
 
     <DropdownMenuPortal>
       <DropdownMenuContent
-        class="w-56 divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none will-change-[opacity,transform] animate-in data-[side=top]:slide-in-top--4 data-[side=bottom]:slide-in-top--4"
+        class="w-56 divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none will-change-[opacity,transform] animate-in data-[side=top]:slide-in-bottom--4 data-[side=bottom]:slide-in-bottom--4"
       >
         <DropdownMenuLabel />
         <DropdownMenuItem
@@ -66,7 +66,6 @@ const avatar = computed(() => user.value?.user_metadata.avatar_url);
           Sign out
         </DropdownMenuItem>
 
-        <DropdownMenuArrow />
       </DropdownMenuContent>
     </DropdownMenuPortal>
   </DropdownMenuRoot>

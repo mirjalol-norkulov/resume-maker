@@ -1,6 +1,6 @@
 <template>
   <div
-    class="rich-text-editor bg-slate-100 relative px-4 py-2 after:(content-none absolute left-0 bottom-0 block w-full h-0.5 bg-primary transform scale-x-0 opacity-0 transition-opacity transition-transform duration-300) focus-within:after:(scale-x-100 opacity-100)"
+    class="rich-text-editor bg-slate-100 relative px-4 py-2 after:(content-empty absolute left-0 bottom-0 block w-full h-0.5 bg-primary transform scale-x-0 opacity-0 transition-opacity transition-transform duration-300) focus-within:after:(scale-x-100 opacity-100)"
   >
     <editor-menu v-if="editor" :editor="editor" />
     <editor-content

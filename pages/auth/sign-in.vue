@@ -24,7 +24,7 @@ const validationSchema = toTypedSchema(
     email: string()
       .nonempty("Please enter your email address")
       .email({ message: "Must be a valid email address" }),
-  })
+  }),
 );
 
 const { handleSubmit, errors, resetForm } = useForm({ validationSchema });
@@ -104,7 +104,7 @@ const signInWithGoogle = async () => {
             class="w-full bg-[#DB4437] text-white flex items-center justify-between rounded px-4 py-2 space-x-2 after:content-none"
             @click="signInWithGoogle"
           >
-            <div class="i-mdi-google" />
+            <Icon name="i-mdi-google" />
             <span>Sign In with Google </span>
           </button>
         </div>

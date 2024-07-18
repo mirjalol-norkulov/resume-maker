@@ -2,13 +2,13 @@
 import {
   defineConfig,
   presetWebFonts,
-  presetIcons,
   transformerVariantGroup,
   transformerDirectives,
   presetUno,
 } from "unocss";
+import { presetAnimations } from "unocss-preset-animations";
+
 import { theme } from "@unocss/preset-mini";
-import { FileSystemIconLoader } from "@iconify/utils/lib/loader/node-loaders";
 
 export default defineConfig({
   presets: [
@@ -19,13 +19,7 @@ export default defineConfig({
         sans: "Nunito Sans:400,500,600,700,800",
       },
     }),
-    presetIcons({
-      collections: {
-        local: FileSystemIconLoader("./icons", (svg) =>
-          svg.replace(/#fff/, "currentColor")
-        ),
-      },
-    }),
+    presetAnimations(),
   ],
   theme: {
     colors: {

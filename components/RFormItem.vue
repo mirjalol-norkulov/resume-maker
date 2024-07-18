@@ -1,3 +1,15 @@
+<script setup lang="ts">
+withDefaults(
+  defineProps<{
+    label?: string;
+    fullWidth?: boolean;
+    showError?: boolean;
+    errorMessage?: string;
+  }>(),
+  { fullWidth: false, showError: false },
+);
+</script>
+
 <template>
   <div :class="{ 'w-full': fullWidth }">
     <div
@@ -17,15 +29,3 @@
     </p>
   </div>
 </template>
-
-<script setup lang="ts">
-withDefaults(
-  defineProps<{
-    label?: string;
-    fullWidth?: boolean;
-    showError?: boolean;
-    errorMessage?: string;
-  }>(),
-  { fullWidth: false, showError: false }
-);
-</script>

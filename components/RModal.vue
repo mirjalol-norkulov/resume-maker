@@ -1,3 +1,27 @@
+<script setup lang="ts">
+import {
+  TransitionRoot,
+  TransitionChild,
+  Dialog,
+  DialogPanel,
+} from "@headlessui/vue";
+
+withDefaults(
+  defineProps<{
+    modelValue?: boolean;
+    showClose?: boolean;
+  }>(),
+  {
+    modelValue: false,
+    showClose: false,
+  },
+);
+const emit = defineEmits(["update:model-value"]);
+const handleClose = () => {
+  emit("update:model-value", false);
+};
+</script>
+
 <template>
   <TransitionRoot appear :show="modelValue" as="template">
     <Dialog :open="modelValue" class="relative z-10" @close="handleClose">
@@ -33,7 +57,10 @@
                 class="bg-transparent absolute top-4 right-4 z-10 outline-none"
                 @click="handleClose"
               >
-                <span class="i-ri-close-line inline-block w-6 h-6 text-white" />
+                <Icon
+                  name="i-ri-close-line"
+                  class="inline-block w-6 h-6 text-white"
+                />
               </button>
             </DialogPanel>
           </TransitionChild>
@@ -42,27 +69,3 @@
     </Dialog>
   </TransitionRoot>
 </template>
-
-<script setup lang="ts">
-import {
-  TransitionRoot,
-  TransitionChild,
-  Dialog,
-  DialogPanel,
-} from "@headlessui/vue";
-
-withDefaults(
-  defineProps<{
-    modelValue?: boolean;
-    showClose?: boolean;
-  }>(),
-  {
-    modelValue: false,
-    showClose: false,
-  }
-);
-const emit = defineEmits(["update:model-value"]);
-const handleClose = () => {
-  emit("update:model-value", false);
-};
-</script>

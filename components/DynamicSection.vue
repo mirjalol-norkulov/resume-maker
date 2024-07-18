@@ -5,7 +5,7 @@
         class="focus:outline-none bg-transparent absolute right-full text-slate-300 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
         :class="dragHandleClass"
       >
-        <span class="i-ri-draggable w-6 h-6" />
+        <Icon name="i-ri-draggable" :size="24" />
       </button>
       <EditableTitle v-model="innerSection.title" />
     </div>

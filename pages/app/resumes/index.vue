@@ -18,7 +18,7 @@ const { data: resumes } = await supabase
       <header class="flex items-center justify-between">
         <h1 class="text-3xl md:text-4xl font-bold">Resumes</h1>
         <RButton color="primary" size="sm">
-          <span class="i-ri-add-line w-4 h-4"></span>
+          <Icon name="i-ri-add-line" class="w-4 h-4"></Icon>
           Create new
         </RButton>
       </header>
@@ -28,7 +28,7 @@ const { data: resumes } = await supabase
             :to="`/app/resumes/${resume.id}`"
             class="w-48 aspect-[3/4] rounded border border-solid border-gray-200 flex items-center justify-center"
           >
-            <div class="i-ri-file-4-line text-gray-400 w-12 h-12" />
+            <Icon name="i-ri-file-4-line" class="text-gray-400 w-12 h-12" />
           </NuxtLink>
           <section>
             <h2 class="text-xl font-medium">{{ resume.name }}</h2>
@@ -40,16 +40,18 @@ const { data: resumes } = await supabase
                 :to="`/app/resumes/${resume.id}`"
                 class="flex items-center space-x-2 hover:text-primary"
               >
-                <span
-                  class="inline-block i-ri-pencil-line w-5 h-5 text-primary"
+                <Icon
+                  name="i-ri-pencil-line"
+                  class="inline-block w-5 h-5 text-primary"
                 />
                 <span>Edit</span>
               </NuxtLink>
               <button
                 class="bg-transparent flex items-center space-x-2 hover:text-primary"
               >
-                <span
-                  class="inline-block i-ri-download-line w-5 h-5 text-primary"
+                <Icon
+                  name="i-ri-download-line"
+                  class="inline-block w-5 h-5 text-primary"
                 />
                 <span>Download PDF</span>
               </button>

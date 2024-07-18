@@ -1,5 +1,3 @@
-import { FileSystemIconLoader } from "unplugin-icons/loaders";
-
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: [
@@ -7,8 +5,21 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@nuxtjs/supabase",
     "@vueuse/nuxt",
-    "@nuxt/icon"
+    "@nuxt/icon",
   ],
+
+  supabase: {
+    redirectOptions: {
+      login: "/auth/sign-in",
+      callback: "/auth/confirm",
+      include: undefined,
+      exclude: ["/", "/auth/sign-in"],
+      cookieRedirect: true,
+    },
+  },
+  icon: {
+    customCollections: [{ prefix: "local", dir: "./icons" }],
+  },
 
   components: [
     {
@@ -20,7 +31,6 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true,
   },
-  build: {
-    // transpile: ["@tato30/vue-pdf", "pdfjs-dist"],
-  },
+
+  compatibilityDate: "2024-07-18",
 });

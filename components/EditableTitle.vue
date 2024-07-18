@@ -16,7 +16,7 @@
       class="focus:outline-none bg-transparent hover:text-primary opacity-0 cursor-pointer transition-all duration-300 group-hover:opacity-100 group-hover:text-primary"
       @click="handleEnableEdit"
     >
-      <div class="i-ri-pencil-line h-5 w-5" />
+      <Icon name="i-ri-pencil-line" :size="20" />
     </button>
   </div>
 </template>

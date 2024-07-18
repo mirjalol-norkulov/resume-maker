@@ -9,10 +9,6 @@ import {
 } from "#components";
 import { SectionType } from "~/types/enums";
 
-definePageMeta({
-  middleware: "auth",
-});
-
 const route = useRoute();
 const supabase = useSupabaseClient();
 
@@ -23,14 +19,8 @@ const resume = ref(
       .select("*")
       .eq("id", route.params.id)
       .single<any>()
-  ).data
+  ).data,
 );
-
-// const { data: resume } = await supabase
-// .from("resumes")
-// .select("*")
-// .eq("id", route.params.id)
-// .single<any>();
 
 useHead({
   title: resume.value.name,
@@ -53,7 +43,7 @@ const personalDetails = reactive(
     nationality: "",
     birthPlace: "",
     birthDate: "",
-  }
+  },
 );
 
 const showAdditionalDetails = ref(false);
@@ -61,7 +51,7 @@ const summary = reactive(
   resume.value.summary || {
     title: "Professional summary",
     content: "",
-  }
+  },
 );
 
 const drag = ref(false);
@@ -105,11 +95,12 @@ const sections = ref(
       type: SectionType.Skills,
       items: [],
     },
-  ]
+  ],
 );
 
-function dataURItoBlob(dataURI: string) {
-  return fetch(dataURI).then((response) => response.blob());
+async function dataURItoBlob(dataURI: string) {
+  const response = await fetch(dataURI);
+  return await response.blob();
 }
 
 watch(photo, async () => {
@@ -142,20 +133,9 @@ const SECTION_COMPONENT_MAP: Record<SectionType, any> = {
 
 const handleSectionUpdate = (section: any) => {
   sections.value = sections.value.map((s: any) =>
-    s.id === section.id ? section : s
+    s.id === section.id ? section : s,
   );
 };
-
-const { refresh: updateResumePreview } = useFetch(
-  `/api/preview/${resume.value.id}`,
-  {
-    method: "POST",
-    server: false,
-    onResponse(context) {
-      resume.value = context.response._data;
-    },
-  }
-);
 
 watchDebounced(
   [name, personalDetails, summary, sections],
@@ -169,24 +149,9 @@ watchDebounced(
         sections: sections.value,
       } as never)
       .eq("id", resume.value.id);
-    updateResumePreview();
   },
-  { debounce: 500, deep: true }
+  { debounce: 500, deep: true },
 );
-
-const pdfUrl = computed(() => {
-  if (resume.value.pdf_url) {
-    const { data } = supabase.storage
-      .from("resume_pdf_files")
-      .getPublicUrl(resume.value.pdf_url);
-
-    const url = new URL(data.publicUrl);
-    url.searchParams.set("key", new Date().valueOf().toString());
-    return url.toString();
-  }
-
-  return null;
-});
 </script>
 
 <template>
@@ -221,7 +186,7 @@ const pdfUrl = computed(() => {
         </r-form-item>
       </div>
       <r-collapse
-        :collapsed="!showAdditionalDetails"
+        v-model:open="showAdditionalDetails"
         class="mt-8 grid grid-cols-2 gap-8 items-end"
       >
         <r-form-item label="Country" full-width>
@@ -249,11 +214,11 @@ const pdfUrl = computed(() => {
       >
         <span v-if="!showAdditionalDetails" class="flex items-center">
           Edit additional details
-          <div class="i-mdi-chevron-down w-5 h-5" />
+          <Icon name="i-mdi-chevron-down" class="w-5 h-5" />
         </span>
         <span v-else class="flex items-center">
           Hide additional details
-          <div class="i-mdi-chevron-up w-5 h-5" />
+          <Icon name="i-mdi-chevron-up" class="w-5 h-5" />
         </span>
       </button>
       <editable-title class="mb-2" v-model="summary.title" />
@@ -286,9 +251,7 @@ const pdfUrl = computed(() => {
     <section
       class="w-1/2 min-h-screen bg-gray-500 flex items-center justify-center"
     >
-      <ClientOnly>
-        <PdfView v-if="pdfUrl" :src="pdfUrl" />
-      </ClientOnly>
+      <ClientOnly> </ClientOnly>
     </section>
   </div>
 </template>

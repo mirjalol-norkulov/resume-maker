@@ -12,11 +12,13 @@
         :expanded="expanded"
         @delete="deleteItem(item)"
         @update:item="updateItem(item)"
-        @update:expanded="(isExpanded: boolean) => expandChange(isExpanded, item)"
+        @update:expanded="
+          (isExpanded: boolean) => expandChange(isExpanded, item)
+        "
       />
     </template>
     <r-button variant="link" full-width class="mt-2" @click="handleAddItem">
-      <span class="i-material-symbols-add w-5 h-5" />
+      <Icon name="i-material-symbols-add" class="w-5 h-5" />
       Add employment
     </r-button>
   </DynamicSection>

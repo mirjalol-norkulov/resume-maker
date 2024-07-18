@@ -13,15 +13,15 @@
           alt="Avatar"
           class="w-full h-full object-cover rounded"
         />
-        <div v-else class="i-local-man text-slate-300 w-7 h-7" />
+        <Icon name="i-local-man" v-else class="text-slate-300 w-7 h-7" />
       </div>
       <div v-if="innerValue?.croppedImage" class="flex flex-col pl-2">
         <r-button variant="text">
-          <div class="i-material-symbols-edit" />
+          <Icon name="i-material-symbols-edit" />
           Edit photo
         </r-button>
         <r-button variant="text" @click.stop="handleDelete">
-          <div class="i-material-symbols-delete-outline w-5 h-5" />
+          <Icon name="i-material-symbols-delete-outline" :size="20" />
           Delete
         </r-button>
       </div>
@@ -84,7 +84,7 @@ const props = withDefaults(
   defineProps<{
     modelValue?: ModelValue | undefined | null;
   }>(),
-  { modelValue: () => getDefaultValues() }
+  { modelValue: () => getDefaultValues() },
 );
 const emit = defineEmits(["update:model-value"]);
 
@@ -102,7 +102,7 @@ watch(
   (newValue) => {
     if (newValue) innerValue.value = newValue;
   },
-  { immediate: true }
+  { immediate: true },
 );
 
 const handleInputChange = (event: any) => {

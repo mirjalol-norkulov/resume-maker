@@ -1,6 +1,7 @@
 import puppeteer from "puppeteer";
 import fs from "fs";
 import { serverSupabaseServiceRole } from "#supabase/server";
+import Handlebars from "handlebars/runtime";
 
 export default defineEventHandler(async (event) => {
   const client = serverSupabaseServiceRole(event);
@@ -13,7 +14,18 @@ export default defineEventHandler(async (event) => {
   });
   const page = await browser.newPage();
   try {
-    const resumeId = event.context.params?.resumeId;
+    const resumeId = event.context.params?.resumeId || "";
+    const { data: resume } = await client
+      .from("resumes")
+      .select("*")
+      .eq("id", resumeId)
+      .single<any>();
+    const templateSource = fs.readFileSync("templates/default.html", "utf-8");
+    const template = Handlebars.compile(templateSource);
+    const templateData = {
+      showPhoto: false,
+      // name:
+    };
     const url = `http://localhost:3000/preview/${resumeId}`;
     await page.goto(url, { waitUntil: "networkidle2" });
     await page.pdf({

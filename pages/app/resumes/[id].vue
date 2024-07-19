@@ -137,6 +137,9 @@ const handleSectionUpdate = (section: any) => {
   );
 };
 
+const pdfBlob = ref<Blob>();
+const { base64 } = useBase64(pdfBlob);
+
 watchDebounced(
   [name, personalDetails, summary, sections],
   async () => {
@@ -149,8 +152,13 @@ watchDebounced(
         sections: sections.value,
       } as never)
       .eq("id", resume.value.id);
+
+    const response = await fetch(`/api/preview/${resume.value.id}`, {
+      method: "post",
+    });
+    pdfBlob.value = await response.blob();
   },
-  { debounce: 500, deep: true },
+  { debounce: 500, deep: true, immediate: true },
 );
 </script>
 
@@ -251,7 +259,9 @@ watchDebounced(
     <section
       class="w-1/2 min-h-screen bg-gray-500 flex items-center justify-center"
     >
-      <ClientOnly> </ClientOnly>
+      <ClientOnly>
+        <PdfView v-if="base64" :src="base64" />
+      </ClientOnly>
     </section>
   </div>
 </template>

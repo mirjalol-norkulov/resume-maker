@@ -1,9 +1,11 @@
 import puppeteer from "puppeteer";
 import fs from "fs";
 import { serverSupabaseServiceRole } from "#supabase/server";
-import Handlebars from "handlebars/runtime";
+import { Readable } from "node:stream";
+import nunjucks from "nunjucks";
 
 export default defineEventHandler(async (event) => {
+  nunjucks.configure("templates", { autoescape: true });
   const client = serverSupabaseServiceRole(event);
   const browser = await puppeteer.launch({
     headless: "new",
@@ -20,19 +22,30 @@ export default defineEventHandler(async (event) => {
       .select("*")
       .eq("id", resumeId)
       .single<any>();
-    const templateSource = fs.readFileSync("templates/default.html", "utf-8");
-    const template = Handlebars.compile(templateSource);
+    const cssContent = fs.readFileSync("templates/default.css");
     const templateData = {
       showPhoto: false,
-      // name:
+      fullName: [
+        resume.personal_details.firstName,
+        resume.personal_details.lastName,
+      ]
+        .filter(Boolean)
+        .join(" "),
+      personalDetails: resume.personal_details,
+      summary: resume.summary,
+      sections: resume.sections,
+      cssContent,
     };
-    const url = `http://localhost:3000/preview/${resumeId}`;
-    await page.goto(url, { waitUntil: "networkidle2" });
-    await page.pdf({
+    const compiledHtml = nunjucks.render("default.njk", templateData);
+    await page.setContent(compiledHtml, { waitUntil: "networkidle2" });
+    const pdfBuffer = await page.pdf({
       path: "preview.pdf",
       format: "A4",
       printBackground: true,
     });
+    const pdfStream = new Readable();
+    pdfStream.push(pdfBuffer);
+    pdfStream.push(null);
 
     const pdfFile = new Blob([fs.readFileSync("preview.pdf")]);
     const { data } = await client.storage
@@ -40,7 +53,7 @@ export default defineEventHandler(async (event) => {
       .upload(`${resumeId}.pdf`, pdfFile, { upsert: true });
     fs.unlink("preview.pdf", () => {});
 
-    const { data: resume } = await client
+    await client
       .from("resumes")
       .update({
         pdf_url: data?.path,
@@ -49,7 +62,13 @@ export default defineEventHandler(async (event) => {
       .select()
       .single();
 
-    return resume;
+    event.node.res.setHeader("Content-Type", "application/pdf");
+    event.node.res.setHeader(
+      "Content-Disposition",
+      `attachment; filename="${resumeId}.pdf"`,
+    );
+
+    return sendStream(event, pdfStream);
   } finally {
     await browser.close();
   }

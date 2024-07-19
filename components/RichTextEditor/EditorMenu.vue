@@ -33,28 +33,28 @@ const handleLinkClick = () => {
 <template>
   <nav class="py-2 flex items-center space-x-2">
     <button
-      class="outline-none w-5 h-5"
+      class="outline-none w-5 h-5 bg-transparent"
       :class="{ 'text-primary': editor.isActive('bold') }"
       @click="editor.chain().toggleBold().focus().run()"
     >
       <Icon name="i-material-symbols-format-bold" />
     </button>
     <button
-      class="outline-none w-5 h-5"
+      class="outline-none w-5 h-5 bg-transparent"
       :class="{ 'text-primary': editor.isActive('italic') }"
       @click="editor.chain().toggleItalic().focus().run()"
     >
       <Icon name="i-material-symbols-format-italic" />
     </button>
     <button
-      class="outline-none w-5 h-5"
+      class="outline-none w-5 h-5 bg-transparent"
       :class="{ 'text-primary': editor.isActive('underline') }"
       @click="editor.commands.toggleUnderline"
     >
       <Icon name="i-material-symbols-format-underlined" />
     </button>
     <button
-      class="outline-none w-5 h-5"
+      class="outline-none w-5 h-5 bg-transparent"
       :class="{ 'text-primary': editor.isActive('strike') }"
       @click="editor.commands.toggleStrike"
     >
@@ -62,14 +62,14 @@ const handleLinkClick = () => {
     </button>
     <div class="editor-menu__divider"></div>
     <button
-      class="outline-none w-5 h-5"
+      class="outline-none w-5 h-5 bg-transparent"
       :class="{ 'text-primary': editor.isActive('orderedList') }"
       @click="editor.commands.toggleOrderedList"
     >
       <Icon name="i-material-symbols-format-list-numbered" />
     </button>
     <button
-      class="outline-none w-5 h-5"
+      class="outline-none w-5 h-5 bg-transparent"
       :class="{ 'editor-menu__btn--active': editor.isActive('bulletList') }"
       @click="editor.commands.toggleBulletList"
     >
@@ -79,7 +79,7 @@ const handleLinkClick = () => {
     <div class="block h-5 w-0.25 bg-gray-300 self-stretch"></div>
 
     <button
-      class="outline-none w-5 h-5"
+      class="outline-none w-5 h-5 bg-transparent"
       :class="{ 'editor-menu__btn--active': editor.isActive('link') }"
       @click="handleLinkClick"
     >

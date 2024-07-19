@@ -18,6 +18,7 @@ withDefaults(
     color?: "default" | "primary";
     loading?: boolean;
     size?: "sm" | "md" | "lg";
+    circle?: boolean;
   }>(),
   {
     variant: "default",
@@ -25,7 +26,8 @@ withDefaults(
     color: "default",
     loading: false,
     size: "md",
-  }
+    circle: false,
+  },
 );
 
 const button = tv({
@@ -43,11 +45,15 @@ const button = tv({
       default: "ring-slate-300",
       primary: "bg-primary text-white ring-primary",
     },
+    circle: {
+      true: "rounded-full",
+    },
     size: {
       sm: "text-sm px-3 h-8",
       md: "text-base px-4 h-10",
       lg: "text-xl px-4 h-12",
     },
   },
+  compoundVariants: [{ circle: true, size: "sm", class: "rounded-full" }],
 });
 </script>

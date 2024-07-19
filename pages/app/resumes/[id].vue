@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { type Ref } from "vue";
 import draggable from "vuedraggable";
 import {
   Education,
@@ -138,7 +139,7 @@ const handleSectionUpdate = (section: any) => {
 };
 
 const pdfBlob = ref<Blob>();
-const { base64 } = useBase64(pdfBlob);
+const { base64 } = useBase64(pdfBlob as Ref<Blob>);
 
 watchDebounced(
   [name, personalDetails, summary, sections],
@@ -257,7 +258,7 @@ watchDebounced(
       </draggable>
     </section>
     <section
-      class="w-1/2 min-h-screen bg-gray-500 flex items-center justify-center"
+      class="relative w-1/2 min-h-screen bg-gray-500 flex items-center justify-center"
     >
       <ClientOnly>
         <PdfView v-if="base64" :src="base64" />

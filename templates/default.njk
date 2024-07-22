@@ -4,11 +4,19 @@
   <title>{{ fullName  }}</title>
   <style>
     {{  cssContent | safe }}
+
+    html, body {
+      height: 100%;
+    }
+
+    @page {
+      size: A4;
+    }
   </style>
 </head>
-<body class="font-sans text-black p-0 m-0">
-<div class="flex w-full min-h-screen">
-    <aside class="px-6 py-8 text-white bg-[#10365c]">
+<body class="font-sans text-black p-0 m-0 h-full">
+<div class="flex w-full h-full">
+    <aside class="px-6 py-8 text-white bg-[#10365c] h-screen w-60">
       <section class="flex flex-col items-center">
         {% if personalDetails.photo and personalDetails.photo.croppedImage %}
         <img alt="{{ fullName }}"
@@ -53,7 +61,7 @@
         </div>
       </section>
     </aside>
-    <div class="flex-1 bg-white px-6 py-8">
+    <div id="content" class="bg-white px-6 py-8 flex-1">
       <section>
         <h1 class="font-bold text-xl mb-1">{{ summary.title }}</h1>
         <div class="text-sm">{{ summary.content | safe }}</div>

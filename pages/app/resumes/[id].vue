@@ -165,7 +165,7 @@ watchDebounced(
 
 <template>
   <div class="flex w-screen min-h-screen">
-    <section class="w-1/2 px-12 pb-20 max-h-screen overflow-y-auto scrollable">
+    <section class="w-5/12 px-12 pb-20 max-h-screen overflow-y-auto scrollable">
       <div class="flex justify-center py-5">
         <EditableTitle v-model="name" />
       </div>
@@ -258,7 +258,7 @@ watchDebounced(
       </draggable>
     </section>
     <section
-      class="relative w-1/2 min-h-screen bg-gray-500 flex items-center justify-center"
+      class="relative w-7/12 min-h-screen bg-gray-500 flex items-center justify-center"
     >
       <ClientOnly>
         <PdfView v-if="base64" :src="base64" />

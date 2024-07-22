@@ -38,6 +38,23 @@ export default defineEventHandler(async (event) => {
     };
     const compiledHtml = nunjucks.render("default.njk", templateData);
     await page.setContent(compiledHtml, { waitUntil: "networkidle2" });
+    // Adjust the height of the sidebar to match the content height
+    await page.evaluate(() => {
+      const sidebar = document.querySelector("aside");
+      if (sidebar) {
+        const body = document.body;
+        const html = document.documentElement;
+        const height = Math.max(
+          body.scrollHeight,
+          body.offsetHeight,
+          html.clientHeight,
+          html.scrollHeight,
+          html.offsetHeight,
+        );
+        console.log("height: ", height);
+        sidebar.style.height = `${height}px`;
+      }
+    });
     const pdfBuffer = await page.pdf({
       path: "preview.pdf",
       format: "A4",

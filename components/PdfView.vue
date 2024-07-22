@@ -6,36 +6,27 @@ const props = defineProps<{
   src: string;
 }>();
 
-const containerEl = ref<HTMLElement | undefined>();
 const canvasEl = ref<HTMLCanvasElement | undefined>();
 let pdf: PDFDocumentProxy | null = null;
 const currentPage = ref(1);
 const totalPages = ref(1);
 
 const renderPage = async (pageIndex: number) => {
-  if (!pdf || !canvasEl.value || !containerEl.value) {
+  if (!pdf || !canvasEl.value) {
     return;
   }
 
+  const scale = 1;
   const page = await pdf.getPage(pageIndex);
-  const viewport = page.getViewport({ scale: 1 });
-  const containerWidth = containerEl.value.clientWidth;
-  const containerHeight = containerEl.value.clientHeight;
-  const maxScale = Math.min(
-    containerWidth / viewport.width,
-    containerHeight / viewport.height,
-  );
-  const marginFactor = 1; // 95% of the max scale to make it smaller
-  const scale = maxScale * marginFactor;
+  const viewport = page.getViewport({ scale });
 
   const outputScale = window.devicePixelRatio || 1;
   const canvas = canvasEl.value;
-  const scaledViewport = page.getViewport({ scale: scale });
   const context = canvas.getContext("2d");
-  canvas.width = Math.floor(scaledViewport.width * outputScale);
-  canvas.height = Math.floor(scaledViewport.height * outputScale);
-  canvas.style.width = Math.floor(scaledViewport.width) + "px";
-  canvas.style.height = Math.floor(scaledViewport.height) + "px";
+  canvas.width = Math.floor(viewport.width * outputScale);
+  canvas.height = Math.floor(viewport.height * outputScale);
+  canvas.style.width = Math.floor(viewport.width) + "px";
+  canvas.style.height = Math.floor(viewport.height) + "px";
   const transform =
     outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : undefined;
 
@@ -50,13 +41,13 @@ const renderPage = async (pageIndex: number) => {
   const renderContext = {
     canvasContext: context,
     transform: transform,
-    viewport: scaledViewport,
+    viewport,
   };
   page.render(renderContext);
 };
 
 const renderPdf = async () => {
-  if (!canvasEl.value || !containerEl.value) {
+  if (!canvasEl.value) {
     return;
   }
   pdfjsLib.GlobalWorkerOptions.workerSrc = await import(
@@ -95,12 +86,13 @@ const handleNextPage = () => {
 </script>
 
 <template>
-  <div
-    ref="containerEl"
-    class="relative w-full h-[90%] overflow-hidden flex items-center justify-center"
-  >
-    <canvas ref="canvasEl"></canvas>
-    <section class="absolute left-1/2 bottom-4 flex items-center text-white">
+  <div class="w-full h-full flex flex-col items-center justify-center gap-y-2">
+    <div
+      class="relative w-full flex-1 overflow-hidden flex items-center justify-center"
+    >
+      <canvas ref="canvasEl" class="absolute inset-0"></canvas>
+    </div>
+    <section class="flex items-center text-white">
       <button
         class="bg-transparent flex items-center disabled:text-gray-400"
         :disabled="currentPage === 1"
@@ -108,9 +100,7 @@ const handleNextPage = () => {
       >
         <Icon name="material-symbols:chevron-left" size="22" />
       </button>
-      <span class="text-sm">
-        {{ currentPage }} / {{ totalPages }}
-      </span>
+      <span class="text-sm"> {{ currentPage }} / {{ totalPages }} </span>
       <button
         class="bg-transparent flex items-center disabled:text-gray-400"
         :disabled="currentPage === totalPages"

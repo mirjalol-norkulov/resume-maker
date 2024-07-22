@@ -258,10 +258,12 @@ watchDebounced(
       </draggable>
     </section>
     <section
-      class="relative w-7/12 min-h-screen bg-gray-500 flex items-center justify-center"
+      class="relative w-7/12 min-h-screen bg-gray-500 flex flex-col items-center justify-center py-8"
     >
       <ClientOnly>
-        <PdfView v-if="base64" :src="base64" />
+        <div class="w-10/12 flex-1">
+          <PdfView v-if="base64" :src="base64" />
+        </div>
       </ClientOnly>
     </section>
   </div>
